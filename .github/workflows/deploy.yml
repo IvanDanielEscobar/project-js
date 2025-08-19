@@ -14,5 +14,5 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519_ivan_escobar
 
           "
-        - name: Test SSH connection
+      - name: Test SSH connection
         run: ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no alumno@137.184.127.11 "echo Conectado correctamente"
