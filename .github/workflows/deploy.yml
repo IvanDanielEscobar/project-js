@@ -16,6 +16,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519_ivan_escobar
           chmod 600 ~/.ssh/id_ed25519_ivan_escobar
+          ssh-keyscan 137.184.127.11 >> ~/.ssh/known_hosts
 
       - name: Conectarse al servidor y hacer git pull
         run: |
