@@ -16,7 +16,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H alumno137.184.127.11 >> ~/.ssh/known_hosts
+           ssh-keyscan -H 137.184.127.11 >> ~/.ssh/known_hosts
 
       - name: Hacer git pull en el servidor
         run: |
