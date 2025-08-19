@@ -8,14 +8,18 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519_ivan_escobar
+          chmod 600 ~/.ssh/id_ed25519_ivan_escobar
+
       - name: Conectarse al servidor y hacer git pull
         run: |
-          ssh -o StrictHostKeyChecking=no alumno@137.184.127.11 "
+          ssh -i ~/.ssh/id_ed25519_ivan_escobar -o StrictHostKeyChecking=no alumno@137.184.127.11 "
             cd ~/lemp-sites/ivan_escobar &&
             git pull origin main
           "
-        env:
-          # GitHub buscará este secreto para autenticarse vía SSH
-          # El secreto debe contener la clave privada ya configurada
-          # El servidor debe tener la clave pública en ~/.ssh/authorized_keys
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
