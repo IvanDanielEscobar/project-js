@@ -1,0 +1,7 @@
+{
+  "name": "gestor-libros",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "node math.test.js"
+  }
+}

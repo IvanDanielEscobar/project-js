@@ -8,9 +8,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Contraste al servidor y hacer git pull
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Configurar clave SSH
         run: |
-          ssh -o StrictHostKeyChecking=no alumno137.184.127.11 "
-            cd ~/lemp-sites/ivan_escobar && git pull origin main "
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H alumno137.184.127.11 >> ~/.ssh/known_hosts
+
+      - name: Hacer git pull en el servidor
+        run: |
+          ssh -i ~/.ssh/id_rsa alumno@137.184.127.11 "cd ~/lemp-sites/ivan_escobar && git pull origin main"
