@@ -10,9 +10,8 @@ jobs:
     steps:
       - name: Conectarse al servidor y hacer git pull
         run: |
-          ssh -o StrictHostKeyChecking=no alumno@137.184.127.11 "
-            cd ~/lemp-sites/ivan_escobar &&
-            git pull origin main
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no alumno@137.184.127.11 \
+          "cd ~/lemp-sites/ivan_escobar && git pull origin main"
           "
         env:
           # GitHub buscará este secreto para autenticarse vía SSH
