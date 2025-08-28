@@ -8,14 +8,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      -name: Checkout Repository
-      uses: actions/checkout@b4 
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      -name: Setup SSH
-      uses: webfactory/ssh-agent@v.0.8.0
-      with: 
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      -name: Run Deploy Script
-      run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
+      - name: Run Deploy Script
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd ~/itec2do/devops/project-js && ./deploy.sh"
