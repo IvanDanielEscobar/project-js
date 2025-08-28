@@ -21,9 +21,15 @@ const App = () => {
       <h1 className="my-5 text-dark">semaforo de react</h1>
       
       <article className="rounded-3 flex- columd-flex align-items-center m-2">
+        <div data-testid="rojo" className={`luz rojo ${colorInicial === 'rojo' ? 'activo' : ''}`}></div>
+        <div data-testid="amarillo" className={`luz amarillo ${colorInicial === 'amarillo' ? 'activo' : ''}`}></div>
+        <div data-testid="verde" className={`luz verde ${colorInicial === 'verde' ? 'activo' : ''}`}></div>
+
+        {/*  
         <div className={`luz rojo ${colorInicial === 'rojo' ? 'activo' : ''}`}></div>
         <div className={`luz amarillo ${colorInicial === 'amarillo' ? 'activo' : ''}`}></div>
         <div className={`luz verde ${colorInicial === 'verde' ? 'activo' : ''}`}></div>
+        */}
       </article>
 
       {/* El único botón en el medio que cambia el color. */}
