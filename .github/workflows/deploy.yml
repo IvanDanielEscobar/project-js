@@ -33,4 +33,4 @@ jobs:
 
       - name: Run Deploy
         run: |
-          rsync -avz --delete dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:~/lemp-sites/ivan_escobar/semaforo/
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:~/lemp-sites/ivan_escobar/semaforo/
