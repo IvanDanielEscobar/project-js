@@ -1,20 +1,22 @@
-name: CD - Deploy con Git Pull
-
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   deploy:
+    name: Deploy to Server
     runs-on: ubuntu-latest
+
     steps:
-      - name: Conectarse al servidor y hacer git pull
-        run: |
-          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no alumno@137.184.127.11 \
-          "cd ~/lemp-sites/ivan_escobar && git pull origin main"
-          "
-        env:
-          # GitHub buscará este secreto para autenticarse vía SSH
-          # El secreto debe contener la clave privada ya configurada
-          # El servidor debe tener la clave pública en ~/.ssh/authorized_keys
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+      -name: Checkout Repository
+      uses: actions/checkout@b4 
+
+      -name: Setup SSH
+      uses: webfactory/ssh-agent@v.0.8.0
+      with: 
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      -name: Run Deploy Script
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
