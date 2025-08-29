@@ -26,11 +26,14 @@ jobs:
         with:
           node-version: 18
 
-      - name: Instalar dependencias y build
-        run: |
-          npm install
-          npm run build
-
       - name: Run Deploy
         run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:~/lemp-sites/ivan_escobar/semaforo/
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
+           cd ~/lemp-sites/ivan_escobar/project-js && git pull origin main"
+
+      - name: Instalar dependencias y build
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
+          npm install
+          npm run build
+          cd ~/lemp-sites/ivan_escobar/project-js && git pull origin main"
